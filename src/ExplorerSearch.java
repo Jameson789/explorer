@@ -32,8 +32,26 @@ public class ExplorerSearch {
         // Implement your method here!
         // Please also make more test cases
         // I STRONGLY RECOMMEND testing some helpers you might make too
-        return -1;
+
+        int[] start = startLocation(island); 
+        boolean[][] visited = new boolean[island.length][island[0].length];
+        return reachableArea(island, start, visited);
     } 
+
+    public static int reachableArea(int[][] island, int[] current, boolean[][] visited){
+        int curR = current[0];
+        int curC = current[1];
+        if(visited[curR][curC]) return 0;
+        int count = 1;
+
+        visited[curR][curC] = true; 
+
+        List<int[]> moves = possibleMoves(island, current);
+        for (var move : moves) {
+            count += reachableArea(island, move, visited);
+        }
+        return count;
+    }
 
     public static List<int[]> possibleMoves(int[][] island, int[] current){
         int curR = current[0];
