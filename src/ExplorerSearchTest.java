@@ -17,4 +17,59 @@ public class ExplorerSearchTest {
 
     // Add more tests here!
     // Come up with varied cases
+
+    //Starting point tests
+    @Test
+    public void testStartingPointCenterIsh() {
+        int[][] island = {
+            {3,1,1,3,1,1},
+            {3,2,3,1,3,1},
+            {1,1,0,1,3,3},
+            {3,1,2,1,1,1},
+            {1,1,1,2,1,1},
+        };
+        int[] expected = {2,2};
+        assertArrayEquals(expected, ExplorerSearch.startLocation(island));
+    }
+
+    @Test
+    public void testStartingPointTopLeftCorner() {
+        int[][] island = {
+            {0,1,1,3,1,1},
+            {3,2,3,1,3,1},
+            {1,1,1,1,3,3},
+            {3,1,2,1,1,1},
+            {1,1,1,2,1,1},
+        };
+        int[] expected = {0,0};
+        assertArrayEquals(expected, ExplorerSearch.startLocation(island));
+    }
+
+    @Test
+    public void testStartingPoint2_4() {
+        int[][] island = {
+            {2,1,1,3,1,1},
+            {3,2,3,1,3,1},
+            {1,1,1,1,0,3},
+            {3,1,2,1,1,1},
+            {1,1,1,2,1,1},
+        };
+        int[] expected = {2,4};
+        assertArrayEquals(expected, ExplorerSearch.startLocation(island));
+    }
+
+    @Test
+    public void testStartingPointNoLocation() {
+        int[][] island = {
+            {1,1,1,3,1,1},
+            {3,2,3,1,3,1},
+            {1,1,1,1,3,3},
+            {3,1,2,1,1,1},
+            {1,1,1,2,1,1},
+        };
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ExplorerSearch.startLocation(island);
+        });
+        assertEquals("No starting point", exception.getMessage());
+    }
 }
