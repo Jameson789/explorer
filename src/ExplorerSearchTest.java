@@ -20,6 +20,60 @@ public class ExplorerSearchTest {
         assertEquals(14, actual);
     }
 
+    @Test
+    public void testReachableArea_NoReachable() {
+        int[][] island = {
+            {1,1,1,3,1,1},
+            {3,2,3,1,3,1},
+            {1,1,1,1,3,3},
+            {3,1,2,2,0,2},
+            {1,1,1,2,2,1},
+        };
+        int actual = ExplorerSearch.reachableArea(island);
+        assertEquals(1, actual);
+    }
+
+    @Test
+    public void testReachableArea_AllReachable() {
+        int[][] island = {
+            {1,1,1,1,1,1},
+            {1,1,1,1,1,1},
+            {1,1,1,1,1,1},
+            {1,1,1,1,0,1},
+            {1,1,1,1,1,1},
+        };
+        int actual = ExplorerSearch.reachableArea(island);
+        assertEquals(30, actual);
+    } 
+
+    @Test
+    public void testReachableArea_NoStart() {
+        int[][] island = {
+            {1,1,1,3,1,1},
+            {3,2,3,1,3,1},
+            {1,1,1,1,3,3},
+            {3,1,2,2,1,2},
+            {1,1,1,2,2,1},
+        };
+        Exception exception = assertThrows(IllegalArgumentException.class, () -> {
+            ExplorerSearch.startLocation(island);
+        });
+        assertEquals("No starting point", exception.getMessage());
+    }
+
+    @Test
+    public void testReachableArea_DifferentTerrain() {
+        int[][] island = {
+            {1,4,1,3,1,1},
+            {3,2,3,1,3,1},
+            {1,2,1,0,3,3},
+            {3,5,1,2,1,2},
+            {1,1,1,2,6,1},
+        };
+        int actual = ExplorerSearch.reachableArea(island);
+        assertEquals(7, actual);
+    }
+    
     // Add more tests here!
     // Come up with varied cases
 
